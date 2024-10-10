@@ -3,62 +3,65 @@ class sqlQueries:
     ##create sql connection
     
     
-    def userIdToFollwingUN(self, userid):
-        
+    def userIdToFollowingUN(self, userid):
+        return json.dumps(["vaughnGugger", "chazWilms"])
         # return list of usernames - string
         
-    def userIdToFollwingUID(self, userid):
-        
+    def userIdToFollowingUID(self, userid):
+        return 30300303
         # return list of userids - int
         
-    def userIdToFollwersUN(self, userid):
-        
+    def userIdToFollowersUN(self, userid):
+        return 30300303
         # return list of usernames - string
-    def userIdToFollwersUID(self, userid):
-        
+    def userIdToFollowersUID(self, userid):
+        return 30300303
         # return list of userids - int
         
     def getUserIdSchedule(self, userid):
-        
+        return 30300303
         # return json of users full schedule
      
     def getUserIdScheduleCurrDay(self, userid):
-        
+        return 30300303
         # return json of users current days schedule
            
     
 from flask import Flask, jsonify
+import json
 
 app = Flask(__name__)
 
+cl = sqlQueries()
+
 @app.route('/<userid>/following/username', methods=['GET'])
-def get_books(userid):
-    return UserIdToFollwingUN(userid)
+def userIdToFollowingUN(userid):
+    return cl.userIdToFollowingUN(userid)
     #return list of usernames
     
 @app.route('/<userid>/following/userid', methods=['GET'])
-def get_books(userid):
-    return UserIdToFollwingUID(userid)
+def UserIdToFollowingUID(userid):
+    return cl.UserIdToFollowingUID(userid)
     #return list of usernames
 
 @app.route('/<userid>/followers/username', methods=['GET'])
-def get_books(userid):
-    return UserIdToFollwersUN(userid)
+def UserIdToFollowersUN(userid):
+    return cl.UserIdToFollowersUN(userid)
     #return list of usernames
     
 @app.route('/<userid>/followers/userid', methods=['GET'])
-def get_books(userid):
-    return UserIdToFollwersUID(userid)
+def UserIdToFollowersUID(userid):
+    return cl.UserIdToFollowersUID(userid)
     #return list of usernames
 
 @app.route('/<userid>/schedule/full', methods=['GET'])
-def get_books(userid):
-    return getUserIdSchedule(userid)
+def getUserIdSchedule(userid):
+    return cl.getUserIdSchedule(userid)
     #return list of usernames
 
 @app.route('/<userid>/schedule/currday', methods=['GET'])
-def get_books(userid):
-    return getUserIdScheduleCurrDay(userid)
+def getUserIdScheduleCurrDay(userid):
+    return cl.getUserIdScheduleCurrDay(userid)
     #return list of usernames
 
 

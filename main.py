@@ -1,14 +1,23 @@
 
+import json
+
+
+
 class people:
-    def __init__(self, id, username, schedule):
+    def __init__(self, id, username, name,schedule, major, minor, year):
         self.id = id
         self.username = username
+        self.name = name
         self.schedule = schedule
+        self.major = major
+        self.minor = minor
+        self.year = year
 
 
 
-p1 = people(1, "vaughnGugger", "noData")
-p2 = people(2, "chazWilms", "noData")
+
+p1 = people(1, "vaughngugger","Vaughn Gugger", "noData", "Computer Science", "Specialization in Computational Data Science", "Freshman")
+p2 = people(2, "chazwilms","Chaz Wilms", "noData", "Computer Science", "Specialization in Computational Data Science", "Sophomore")
 peopleClassList = [p1, p2]
 namesList = ["vaughnGugger", "chazWilms"]
 
@@ -40,6 +49,10 @@ class sqlQueries:
     def getUserIdScheduleCurrDay(self, userid):
         return 30300303
         # return json of users current days schedule
+
+    def userData(self, username):
+        index = namesList.index(username)
+        return ({ "major": peopleClassList[index].major,  "minor": peopleClassList[index].minor, "year" : peopleClassList[index].year, "name" : peopleClassList[index].name})
 
 
 from flask import Flask, jsonify
@@ -85,6 +98,10 @@ def getUserIdScheduleCurrDay(userid):
     return cl.getUserIdScheduleCurrDay(userid)
     # return list of usernames
 
+@app.route('/userdata/<username>', methods=['GET'])
+def userData(username):
+    return cl.userData(username)
+    # return list of usernames
 
 if __name__ == '__main__':
     app.run(debug=True)

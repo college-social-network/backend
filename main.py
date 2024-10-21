@@ -13,13 +13,34 @@ class people:
         self.minor = minor
         self.year = year
 
+#add support for asyncorus and sycronus online classes(could just have in inperon/online for ones that meet on like a zoom
+vs = [
+    {"Monday": ["none"]},
+    {"Tuesday":
+         [["CS2190", "8:00-9:15"],
+          ["MATH3320", "13:00-14:15"],
+          ["CS2900", "14:30-15:20"]]
+     },
+
+    {"Wednesday": ["none"]},
+    {"Thursday":
+         [["CS2190", "8:00-9:15"],
+          ["MATH3320", "13:00-14:15"],
+          ["CS2900", "14:30-15:20"]]},
+    {"Friday": ["none"]},
+    {"Saturday": ["none"]},
+    {"Sunday": ["none"]}
+]
+vs = "Monday?N+Tuesday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays+Wednesday?N+Thursday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays.BGSU1910@16:00-17:15@University Hall+Friday?N+Saturday?N+Sunday?N+Online?MATH2220"
+p1 = people(1, "vaughngugger","Vaughn Gugger", vs, "Computer Science", "Specialization in Computational Data Science", "Freshman")
 
 
-
-p1 = people(1, "vaughngugger","Vaughn Gugger", "noData", "Computer Science", "Specialization in Computational Data Science", "Freshman")
 p2 = people(2, "chazwilms","Chaz Wilms", "noData", "Computer Science", "Specialization in Computational Data Science", "Sophomore")
-peopleClassList = [p1, p2]
-namesList = ["vaughnGugger", "chazWilms"]
+
+
+p3 = people(3, "halajabri", "Hala Jabri", "noData", "undeclared", "undeclared", "High School Junior")
+peopleClassList = [p1, p2, p3]
+namesList = ["vaughnGugger", "chazWilms", "halaJabri"]
 
 class sqlQueries:
 

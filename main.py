@@ -31,14 +31,31 @@ vs = [
     {"Saturday": ["none"]},
     {"Sunday": ["none"]}
 ]
-vs = "Monday?N+Tuesday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays+Wednesday?N+Thursday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays.BGSU1910@16:00-17:15@University Hall+Friday?N+Saturday?N+Sunday?N+Online?MATH2220"
+vs = """
+Monday?N+
+Tuesday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays+
+Wednesday?N+
+Thursday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays.BGSU1910@16:00-17:15@University Hall+
+Friday?N+
+Saturday?N+
+Sunday?N+
+Online?MATH2220"""
 p1 = people(1, "vaughngugger","Vaughn Gugger", vs, "Computer Science", "Specialization in Computational Data Science", "Freshman")
 
 
 p2 = people(2, "chazwilms","Chaz Wilms", "noData", "Computer Science", "Specialization in Computational Data Science", "Sophomore")
 
-
-p3 = people(3, "halajabri", "Hala Jabri", "noData", "undeclared", "undeclared", "High School Junior")
+hs = """
+Monday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler+
+Tuesday?MATH1220@10:30-11:20@Olscamp+
+Wednesday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler+
+Thursday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler+
+Friday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler.WS2000@11:30-12:20@Eppler+
+Saturday?N+
+Sunday?N+
+Online?WRIT1110
+"""
+p3 = people(3, "halajabri", "Hala Jabri", hs, "undeclared", "undeclared", "High School Junior")
 peopleClassList = [p1, p2, p3]
 namesList = ["vaughnGugger", "chazWilms", "halaJabri"]
 

@@ -57,7 +57,7 @@ Online?WRIT1110
 """
 p3 = people(3, "halajabri", "Hala Jabri", hs, "undeclared", "undeclared", "High School Junior")
 peopleClassList = [p1, p2, p3]
-namesList = ["vaughnGugger", "chazWilms", "halaJabri"]
+namesList = ["vaughngugger", "chazwilms", "halajabri"]
 
 class sqlQueries:
 
@@ -65,7 +65,12 @@ class sqlQueries:
 
 
     def userIdToFollowingUN(self, userid):
-        return "|".join(namesList)
+        a = ""
+        for i in peopleClassList:
+            a += (i.username + "|")
+        a = a[:-1]
+        return a
+        #return "|".join(namesList)
         # return list of usernames - string
 
     def userIdToFollowingUID(self, userid):
@@ -80,8 +85,16 @@ class sqlQueries:
         # return list of userids - int
 
     def getUserIdSchedule(self, userid):
-        index = namesList.index(userid)
-        return peopleClassList[index].schedule
+        #index = namesList.index(userid)
+        #return peopleClassList[index].schedule
+
+
+        for i in peopleClassList:
+            if i.username == userid:
+                return i.schedule
+        return "NO_USER"
+
+
         # return json of users full schedule
 
     def getUserIdScheduleCurrDay(self, userid):
@@ -89,8 +102,16 @@ class sqlQueries:
         # return json of users current days schedule
 
     def userData(self, username):
-        index = namesList.index(username)
-        return ({ "major": peopleClassList[index].major,  "minor": peopleClassList[index].minor, "year" : peopleClassList[index].year, "name" : peopleClassList[index].name})
+        #print(username)
+        #print(namesList)
+
+        for i in peopleClassList:
+            if i.username == username:
+                return ({ "major": i.major,  "minor": i.minor, "year" : i.year, "name" : i.name})
+        return "NO_USER"
+
+        #index = namesList.index(username)
+        #return ({ "major": peopleClassList[index].major,  "minor": peopleClassList[index].minor, "year" : peopleClassList[index].year, "name" : peopleClassList[index].name})
 
 
 from flask import Flask, jsonify

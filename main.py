@@ -61,8 +61,16 @@ namesList = ["vaughngugger", "chazwilms", "halajabri"]
 
 class sqlQueries:
 
-    ##create sql connection
+    ##TODO create sql connection
 
+    def getUserIDScheduleForDay(self, userid, daynum):
+        if int(daynum) > 7:
+            return "INVALID_DAYNUM"
+        for person in peopleClassList:
+            if person.username == userid:
+                scheduleDaySplit = (person.schedule).split('+')
+                return scheduleDaySplit[int(daynum)]
+        return "NO_USER"
 
     def userIdToFollowingUN(self, userid):
         a = ""
@@ -156,6 +164,14 @@ def getUserIdSchedule(userid):
 def getUserIdScheduleCurrDay(userid):
     return cl.getUserIdScheduleCurrDay(userid)
     # return list of usernames
+
+
+@app.route('/schedule/day/<userid>/<daynum>', methods=['GET'])
+def getUserIDScheduleForDay(userid, daynum):
+    return cl.getUserIDScheduleForDay(userid, daynum)
+    # return the schedule for the day with the associated number
+    # 0-6 correspond to mon-sun, and 7 is online classes
+
 
 @app.route('/userdata/<username>', methods=['GET'])
 def userData(username):

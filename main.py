@@ -63,7 +63,7 @@ class sqlQueries:
 
     ##TODO create sql connection
 
-    def getUserIDScheduleForDay(self, userid, daynum):
+    def getUserNameScheduleForDay(self, userid, daynum):
         if int(daynum) > 7:
             return "INVALID_DAYNUM"
         for person in peopleClassList:
@@ -72,7 +72,7 @@ class sqlQueries:
                 return scheduleDaySplit[int(daynum)]
         return "NO_USER"
 
-    def userIdToFollowingUN(self, userid):
+    def userNameToFollowingUN(self, userid):
         a = ""
         for i in peopleClassList:
             a += (i.username + "|")
@@ -92,7 +92,7 @@ class sqlQueries:
         return 30300303
         # return list of userids - int
 
-    def getUserIdSchedule(self, userid):
+    def getUserNameSchedule(self, userid):
         #index = namesList.index(userid)
         #return peopleClassList[index].schedule
 
@@ -131,32 +131,32 @@ cl = sqlQueries()
 
 
 @app.route('/following/username/<userid>', methods=['GET'])
-def userIdToFollowingUN(userid):
-    return cl.userIdToFollowingUN(userid)
+def userNameToFollowingUN(userid):
+    return cl.userNameToFollowingUN(userid)
     # return list of usernames
 
 
 @app.route('/following/userid/<userid>', methods=['GET'])
 def UserIdToFollowingUID(userid):
-    return cl.UserIdToFollowingUID(userid)
+    return cl.userIdToFollowingUID(userid)
     # return list of usernames
 
 
 @app.route('/followers/username/<userid>', methods=['GET'])
 def UserIdToFollowersUN(userid):
-    return cl.UserIdToFollowersUN(userid)
+    return cl.userIdToFollowersUN(userid)
     # return list of usernames
 
 
 @app.route('/followers/userid/<userid>', methods=['GET'])
 def UserIdToFollowersUID(userid):
-    return cl.UserIdToFollowersUID(userid)
+    return cl.userIdToFollowersUID(userid)
     # return list of usernames
 
 
 @app.route('/schedule/full/<userid>', methods=['GET'])
-def getUserIdSchedule(userid):
-    return cl.getUserIdSchedule(userid)
+def getUserNameSchedule(userid):
+    return cl.getUserNameSchedule(userid)
     # return list of usernames
 
 
@@ -167,8 +167,8 @@ def getUserIdScheduleCurrDay(userid):
 
 
 @app.route('/schedule/day/<userid>/<daynum>', methods=['GET'])
-def getUserIDScheduleForDay(userid, daynum):
-    return cl.getUserIDScheduleForDay(userid, daynum)
+def getUserNameScheduleForDay(userid, daynum):
+    return cl.getUserNameScheduleForDay(userid, daynum)
     # return the schedule for the day with the associated number
     # 0-6 correspond to mon-sun, and 7 is online classes
 

@@ -63,14 +63,19 @@ class sqlQueries:
 
     ##TODO create sql connection
 
-    def getUserNameScheduleForDay(self, userid, daynum):
+    def getUserNameScheduleForDay(self, userName, daynum):
         if int(daynum) > 7:
             return "INVALID_DAYNUM"
-        for person in peopleClassList:
-            if person.username == userid:
-                scheduleDaySplit = (person.schedule).split('+')
-                return scheduleDaySplit[int(daynum)]
-        return "NO_USER"
+
+        person = self.findPersonFromUserName(userName)
+
+        if person[0] == 0:
+            return "NO_USER"
+        person = person[1]
+
+        scheduleDaySplit = person.schedule.split('+')
+        return scheduleDaySplit[int(daynum)]
+
 
     def userNameToFollowingUN(self, userid):
         a = ""
@@ -92,31 +97,28 @@ class sqlQueries:
         return 30300303
         # return list of userids - int
 
-    def getUserNameSchedule(self, userid):
-        #index = namesList.index(userid)
-        #return peopleClassList[index].schedule
+    def getUserNameSchedule(self, userName):
 
+        person = self.findPersonFromUserName(userName)
+        if person[0] == 0:
+            return "NO_USER"
 
-        for i in peopleClassList:
-            if i.username == userid:
-                return i.schedule
-        return "NO_USER"
-
-
-        # return json of users full schedule
+        return person[1].schedule
+        # return users full schedule
 
     def getUserIdScheduleCurrDay(self, userid):
         return 30300303
         # return json of users current days schedule
 
     def userData(self, username):
-        #print(username)
-        #print(namesList)
 
-        for i in peopleClassList:
-            if i.username == username:
-                return ({ "major": i.major,  "minor": i.minor, "year" : i.year, "name" : i.name})
-        return "NO_USER"
+        person = self.findPersonFromUserName(username)
+
+        if person[0] == 0:
+            return "NO_USER"
+        person = person[1]
+
+        return ({ "major": person.major,  "minor": person.minor, "year" : person.year, "name" : person.name})
 
         #index = namesList.index(username)
         #return ({ "major": peopleClassList[index].major,  "minor": peopleClassList[index].minor, "year" : peopleClassList[index].year, "name" : peopleClassList[index].name})

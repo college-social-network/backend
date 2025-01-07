@@ -121,6 +121,17 @@ class sqlQueries:
         #index = namesList.index(username)
         #return ({ "major": peopleClassList[index].major,  "minor": peopleClassList[index].minor, "year" : peopleClassList[index].year, "name" : peopleClassList[index].name})
 
+    def findPersonFromUserName(self, username):
+        for person in peopleClassList:
+            if person.username == username:
+                return [1, person]
+        return [0]
+    def findPersonFromId(self, userId):
+        for person in peopleClassList:
+            if person.id == userId:
+                return [1, person]
+        return [0]
+
 
 from flask import Flask, jsonify
 import json

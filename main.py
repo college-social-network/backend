@@ -147,45 +147,31 @@ cl = sqlQueries()
 def userNameToFollowingUN(userid):
     return cl.userNameToFollowingUN(userid)
     # return list of usernames
-
-
 @app.route('/following/userid/<userid>', methods=['GET'])
 def UserIdToFollowingUID(userid):
     return cl.userIdToFollowingUID(userid)
     # return list of usernames
-
-
 @app.route('/followers/username/<userid>', methods=['GET'])
 def UserIdToFollowersUN(userid):
     return cl.userIdToFollowersUN(userid)
     # return list of usernames
-
-
 @app.route('/followers/userid/<userid>', methods=['GET'])
 def UserIdToFollowersUID(userid):
     return cl.userIdToFollowersUID(userid)
     # return list of usernames
-
-
 @app.route('/schedule/full/<userid>', methods=['GET'])
 def getUserNameSchedule(userid):
     return cl.getUserNameSchedule(userid)
     # return list of usernames
-
-
 @app.route('/schedule/currday/<userid>', methods=['GET'])
 def getUserIdScheduleCurrDay(userid):
     return cl.getUserIdScheduleCurrDay(userid)
     # return list of usernames
-
-
 @app.route('/schedule/day/<userid>/<daynum>', methods=['GET'])
 def getUserNameScheduleForDay(userid, daynum):
     return cl.getUserNameScheduleForDay(userid, daynum)
     # return the schedule for the day with the associated number
     # 0-6 correspond to mon-sun, and 7 is online classes
-
-
 @app.route('/userdata/<username>', methods=['GET'])
 def userData(username):
     return cl.userData(username)

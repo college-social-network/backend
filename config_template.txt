@@ -1,0 +1,4 @@
+sql server ip
+username
+password
+database

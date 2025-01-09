@@ -1,8 +1,13 @@
+import mysql.connector
+print("Backend Server Active")
 
-import json
+configdata = open("config.txt", "r")
+host = configdata.readline()
+user = configdata.readline()
+password = configdata.readline().rstrip("\n")
+database = configdata.readline()
 
-
-
+dbConn = mysql.connector.connect(host=host,user=user,password=password,database=database)
 class people:
     def __init__(self, id, username, name,schedule, major, minor, year):
         self.id = id
@@ -13,51 +18,20 @@ class people:
         self.minor = minor
         self.year = year
 
-#add support for asyncorus and sycronus online classes(could just have in inperon/online for ones that meet on like a zoom
-vs = [
-    {"Monday": ["none"]},
-    {"Tuesday":
-         [["CS2190", "8:00-9:15"],
-          ["MATH3320", "13:00-14:15"],
-          ["CS2900", "14:30-15:20"]]
-     },
 
-    {"Wednesday": ["none"]},
-    {"Thursday":
-         [["CS2190", "8:00-9:15"],
-          ["MATH3320", "13:00-14:15"],
-          ["CS2900", "14:30-15:20"]]},
-    {"Friday": ["none"]},
-    {"Saturday": ["none"]},
-    {"Sunday": ["none"]}
-]
-vs = """
-Monday?N+
-Tuesday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays+
-Wednesday?N+
-Thursday?CS2190@8:00-9:15@Kokosing.MATH3320@13:00-14:15@McLeod.CS2900@14:30-15:20@Hays.BGSU1910@16:00-17:15@University Hall+
-Friday?N+
-Saturday?N+
-Sunday?N+
-Online?MATH2220"""
-p1 = people(1, "vaughngugger","Vaughn Gugger", vs, "Computer Science", "Specialization in Computational Data Science", "Freshman")
+#start up sequence to pull all user information from database
+#better than having it stored in this file
+#however it still essentially does the same thing as before
+#nothing gets updated after initialization
+conn = dbConn.cursor()
+conn.execute("SELECT * FROM required_user_info")
+allUserData = conn.fetchall()
+peopleClassList = []
 
+for person in allUserData:
+    conn.execute(f"SELECT schedule FROM schedule where id='{person[0]}'")
+    peopleClassList.append(people(person[0],person[1],person[2],conn.fetchone()[0],person[5],person[6],person[7]))
 
-p2 = people(2, "chazwilms","Chaz Wilms", "noData", "Computer Science", "Specialization in Computational Data Science", "Sophomore")
-
-hs = """
-Monday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler+
-Tuesday?MATH1220@10:30-11:20@Olscamp+
-Wednesday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler+
-Thursday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler+
-Friday?MATH1220@10:30-11:20@Olscamp.SPAN1020@9:30-10:20@Eppler.WS2000@11:30-12:20@Eppler+
-Saturday?N+
-Sunday?N+
-Online?WRIT1110
-"""
-p3 = people(3, "halajabri", "Hala Jabri", hs, "undeclared", "undeclared", "High School Junior")
-peopleClassList = [p1, p2, p3]
-namesList = ["vaughngugger", "chazwilms", "halajabri"]
 
 class sqlQueries:
 

@@ -1,6 +1,11 @@
 import mysql.connector
-print("Backend Server Active")
+from flask import Flask, jsonify
 
+
+print("Backend Server Active")
+app = Flask(__name__)
+
+#Load in configuration data for accessing mysql database
 configdata = open("config.txt", "r")
 host = configdata.readline()
 user = configdata.readline()
@@ -8,6 +13,7 @@ password = configdata.readline().rstrip("\n")
 database = configdata.readline()
 
 dbConn = mysql.connector.connect(host=host,user=user,password=password,database=database)
+
 class people:
     def __init__(self, id, username, name,schedule, major, minor, year):
         self.id = id
@@ -23,20 +29,26 @@ class people:
 #better than having it stored in this file
 #however it still essentially does the same thing as before
 #nothing gets updated after initialization
+
+#fetch all users from database
 conn = dbConn.cursor()
 conn.execute("SELECT * FROM required_user_info")
 allUserData = conn.fetchall()
+
 peopleClassList = []
 
+#fetch schedule from db for all users through users id
 for person in allUserData:
     conn.execute(f"SELECT schedule FROM schedule where id='{person[0]}'")
     peopleClassList.append(people(person[0],person[1],person[2],conn.fetchone()[0],person[5],person[6],person[7]))
+
+#end connections to database and clean up
 conn.close()
 dbConn.close()
+del allUserData
 
 class sqlQueries:
 
-    ##TODO create sql connection
 
     def getUserNameScheduleForDay(self, userName, daynum):
         if int(daynum) > 7:
@@ -110,10 +122,6 @@ class sqlQueries:
         return [0]
 
 
-from flask import Flask, jsonify
-import json
-
-app = Flask(__name__)
 
 cl = sqlQueries()
 

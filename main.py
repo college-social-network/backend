@@ -31,7 +31,8 @@ peopleClassList = []
 for person in allUserData:
     conn.execute(f"SELECT schedule FROM schedule where id='{person[0]}'")
     peopleClassList.append(people(person[0],person[1],person[2],conn.fetchone()[0],person[5],person[6],person[7]))
-
+conn.close()
+dbConn.close()
 
 class sqlQueries:
 

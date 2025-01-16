@@ -121,8 +121,20 @@ class sqlQueries:
                 return [1, person]
         return [0]
 
-
-
+    def recordFunctionUse(self, fname, dttime, starttime, endtime, userid, fsucc, remote_addr, forwarded_for):
+        try:
+            dbConn_record = mysql.connector.connect(host=host, user=user, password=password, database=database)
+            conn_record = dbConn_record.cursor()
+            command = "INSERT INTO function_usage (functName, startMills, endMills, startTime, userid, typesucc, remote_addr, forwarded_for) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+            val = (fname, starttime, endtime, dttime, userid, fsucc, remote_addr, forwarded_for)
+            #example = ('loginPage', '1725492982', '1725492982', '2024-09-04 23:36:22', 'VaughnGugger', 'loginFail', '172.69.6.104', '72.240.84.129')
+            conn_record.execute(command, val)
+            dbConn_record.commit()
+            conn_record.close()
+            dbConn_record.close()
+            return "1"
+        except:
+            return "0"
 cl = sqlQueries()
 
 
@@ -159,6 +171,10 @@ def getUserNameScheduleForDay(userid, daynum):
 def userData(username):
     return cl.userData(username)
     # return list of usernames
+#since spaces cant be used, replace space in dttime with '+'
+@app.route('/recordfunctionuse/<fname>/<dttime>/<starttime>/<endtime>/<userid>/<fsucc>/<remote_addr>/<forwarded_for>', methods=['GET'])
+def recordFunctionUse(fname, dttime, starttime, endtime, userid, fsucc, remote_addr, forwarded_for):
+    return cl.recordFunctionUse(fname,dttime.replace("+", " "),starttime,endtime,userid,fsucc,remote_addr,forwarded_for)
 
 if __name__ == '__main__':
     app.run(debug=True)
